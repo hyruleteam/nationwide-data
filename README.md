@@ -6,3 +6,12 @@
 
 * 进入`core`文件夹，执行`pip install -r requirements.txt`安装依赖
 * 安装完成之后，执行python geo.py (要求python3.5+)
+
+## 当前表结构
+
+| 字段名 | 类型 | 长度 |
+| ------ | ------ | ------ |
+| id | CHAR | 36 |
+| pid | CHAR | 36 |
+| name | VARCHAR | 50 |
+| code | VARCHAR | 50 |
