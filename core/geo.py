@@ -30,7 +30,7 @@ UA_LIST = [
 ]
 
 FILE_PATH= "/"
-file = open('./data/data.json', 'w')
+file = open('../data/data.json', 'w')
 year = "2018"
 data = {}
 province_data = {}
