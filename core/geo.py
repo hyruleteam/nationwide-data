@@ -35,7 +35,7 @@ year = "2018"
 data = {}
 province_data = {}
 city_data = {}
-area_data = {}
+district_data = {}
 
 def httpGet(url):
     session= requests.Session()
@@ -75,6 +75,7 @@ def getProvince(year):
 
             province_data[code] = {
                 'name':province_name,
+                'type':'province',
                 'parent_code':''
             }
 
@@ -94,6 +95,7 @@ def getCity(year,provinceCode):
 
         city_data[code] = {
             'name':city_name,
+            'type':'city',
             'parent_code':provinceCode
         }
             
@@ -101,7 +103,7 @@ def getCity(year,provinceCode):
     return city_data;
 
 
-def getArea(year,provinceCode,cityCode):
+def getdistrict(year,provinceCode,cityCode):
     f_provinceCode = str(round(provinceCode/10000))
     f_cityCode = str(round(cityCode/100))
     url = 'http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/'+year+'/'+f_provinceCode+'/'+f_cityCode+'.html'
@@ -125,12 +127,13 @@ def getArea(year,provinceCode,cityCode):
 
         print(rst["name"])
 
-        city_data[rst["code"]] = {
+        district_data[rst["code"]] = {
             'name':rst["name"],
+            'type':'district',
             'parent_code':cityCode
         }
 
-    return area_data;
+    return district_data;
     
 
 
@@ -144,11 +147,11 @@ if __name__ == '__main__':
 
     print("======开始获取区数据======")
     for item in list(city_data.keys()):
-        getArea(year,city_data[item]['parent_code'],item)
+        getdistrict(year,city_data[item]['parent_code'],item)
 
     data.update(province_data)
     data.update(city_data)
-    data.update(area_data)
+    data.update(district_data)
     file.write(json.dumps(data,ensure_ascii=False, indent=4, separators=(',', ':')))
     file.close();
 
